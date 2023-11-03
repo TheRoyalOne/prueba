@@ -31,8 +31,13 @@
 </template>
 
 <script>
+import { useStore } from "@/store";
 export default {
   name: "LogIn",
+  created(){
+    const store = useStore();
+    this.jwtToken = store.jwtToken;
+  },
   data() {
     return {
       email: "",
@@ -80,7 +85,9 @@ export default {
           console.log(data);
           const jwtToken = data.data.jwtToken;
           console.log(jwtToken);
-          this.$router.push({ path: `/dashboard/${jwtToken}` });
+          const store = useStore(); 
+          store.setJwtToken(jwtToken); 
+          this.$router.push({ path: `/dashboard` });
         } else {
           alert("There was an error with the request.");
         }

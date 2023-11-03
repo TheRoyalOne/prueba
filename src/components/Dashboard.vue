@@ -1,33 +1,25 @@
 <template>
   <div class="w-4/5 h-4/5 text-ellipsis">
     <h1>Hospitales</h1>
-
     <!-- Display the hospital data in a responsive table -->
     <div class="table-container overflow-auto w-full h-full">
-      <table class="table bg-white ">
+      <table class="table bg-white">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Coordinates</th>
+            <th>Nombre</th>
             <th>Foto</th>
             <th>Logo</th>
             <th>Direccion</th>
-            <th>Google Maps URL</th>
-            <th>Enabled</th>
+            <th>Ubicación</th>
             <th>Telefono</th>
             <th>Horario</th>
-            <th>Estado Code</th>
             <th>Municipio</th>
-            <th>Observaciones</th>
-            <th>Aseguradora</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="hospital in hospitals" :key="hospital._id">
             <td>{{ hospital.name }}</td>
-            <td>{{ hospital.location.coordinates.join(", ") }}</td>
             <td>
               <img :src="hospital.foto" alt="Foto" width="50" height="50" />
             </td>
@@ -36,17 +28,29 @@
             </td>
             <td>{{ hospital.direccion }}</td>
             <td>
-              <a :href="hospital.urlGoogleMaps" target="_blank">Google Maps</a>
+              <a :href="hospital.urlGoogleMaps" target="_blank"
+                >Ubicación en Maps</a
+              >
             </td>
-            <td>{{ hospital.enabled }}</td>
             <td>{{ hospital.telefono }}</td>
             <td>{{ hospital.horario }}</td>
-            <td>{{ hospital.estadoCode }}</td>
             <td>{{ hospital.municipio }}</td>
-            <td>{{ hospital.observaciones }}</td>
-            <td>{{ hospital.aseguradora }}</td>
-            <td>{{ hospital.createdAt }}</td>
-            <td>{{ hospital.updatedAt }}</td>
+            <td class="flex space-x-1">
+              <button class="bg-green-500 p-2" @click="viewHospital(hospital)">
+                <img
+                  src="@/assets/eye-solid.svg"
+                  alt="SVG Image"
+                  class="h-8 w-8"
+                />
+              </button>
+              <button class="bg-orange-500 p-2" @click="editHospital(hospital)">
+                <img
+                  src="@/assets/pencil-solid.svg"
+                  alt="SVG Image"
+                  class="h-8 w-8"
+                />
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -61,11 +65,22 @@
       </button>
     </div>
   </div>
+  <ModalHospitalUpdate
+    :showModal="showModal"
+    :selectedHospital="selectedHospital"
+    @close-modal="closeModal"
+  />
 </template>
 
 <script>
+import { useStore } from "@/store";
+import ModalHospitalUpdate from "@/components/modals/ModalHospitalUpdate.vue"; // Import the ModalHospitalUpdate component here
+
 export default {
   name: "DashBoard",
+  components: {
+    ModalHospitalUpdate,
+  },
   data() {
     return {
       jwtToken: "",
@@ -73,11 +88,19 @@ export default {
       currentPage: 1, // Current page
       totalPages: 0, // Total number of pages
       rowsPerPage: 100, // Number of rows per page
+      showModal: false,
+      selectedHospital: null,
     };
   },
   created() {
-    // Access the jwtToken from route parameters
-    this.jwtToken = this.$route.params.jwtToken;
+    const store = useStore();
+    // Assign the jwtToken from the store to your component's data property
+    this.jwtToken = store.jwtToken;
+    console.log(this.jwtToken);
+    if (!this.jwtToken) {
+      alert("Favor de iniciar sesión");
+      this.$router.push({ path: `/` });
+    }
     this.getHospitals();
   },
   methods: {
@@ -115,6 +138,25 @@ export default {
         this.currentPage++;
         this.getHospitals();
       }
+    },
+
+    // Function to log the complete object when the "View" button is clicked
+    viewHospital(hospital) {
+      console.log("View Hospital:", hospital);
+    },
+
+    // Function to log the complete object when the "Edit" button is clicked
+
+    editHospital(hospital) {
+      console.log("Edit Hospital:", hospital);
+      console.log(this.showModal);
+      this.selectedHospital = hospital;
+      this.showModal = true;
+    },
+
+    closeModal() {
+      this.selectedHospital = null; // Reset the selected hospital
+      this.showModal = false; // Close the modal
     },
   },
 };

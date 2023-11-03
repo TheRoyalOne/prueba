@@ -1,7 +1,7 @@
 <template>
-  <div class="form-container h-4/5 overflow-auto">
-    <h1>Create Hospital</h1>
-    <form @submit.prevent="createHospital">
+  <div class="form-container h-full overflow-auto">
+    <h1>Update Hospital</h1>
+    <form @submit.prevent="updateHospital">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="name" v-model="hospitalData.name" required />
@@ -12,6 +12,15 @@
           type="text"
           id="direccion"
           v-model="hospitalData.direccion"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="urlGoogleMaps">Google Maps URL</label>
+        <input
+          type="text"
+          id="urlGoogleMaps"
+          v-model="hospitalData.urlGoogleMaps"
           required
         />
       </div>
@@ -34,12 +43,20 @@
         />
       </div>
       <div class="form-group">
-        <label for="urlGoogleMaps">Google Maps URL</label>
+        <label for="municipio">Municipio</label>
         <input
           type="text"
-          id="urlGoogleMaps"
-          v-model="hospitalData.urlGoogleMaps"
+          id="municipio"
+          v-model="hospitalData.municipio"
           required
+        />
+      </div>
+      <div class="form-group">
+        <label for="observaciones">Observaciones</label>
+        <input
+          type="text"
+          id="observaciones"
+          v-model="hospitalData.observaciones"
         />
       </div>
       <div class="form-group">
@@ -50,36 +67,46 @@
         <label for="lat">Latitude</label>
         <input type="text" id="lat" v-model="hospitalData.lat" required />
       </div>
-      <button type="submit">Create Hospital</button>
+      <div class="form-group">
+        <label for="aseguradora">Aseguradora</label>
+        <input
+          type="text"
+          id="aseguradora"
+          v-model="hospitalData.aseguradora"
+          required
+        />
+      </div>
+      <button type="submit">Update Hospital</button>
     </form>
   </div>
 </template>
 
 <script>
+import { useStore } from "@/store";
 export default {
-  name: "CreateHospital",
+  name: "UpdateHospital",
+
+  props: {
+    hospital: Object,
+  },
+  created() {
+    const store = useStore();
+    this.jwtToken = store.jwtToken;
+    console.log(this.jwtToken);
+  },
   data() {
     return {
-      jwtToken:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTQ0N2QxN2NhMmYzMjBiOWU0NDIxYzIiLCJpYXQiOjE2OTg5OTM5MzguODQsImV4cCI6MTY5ODk5NzUzOC44NH0.y6MefIlCA75flTHT2xYqPyM0_eNgGeFF0OsBo7eR2yc",
-      hospitalData: {
-        name: "Hospital meddi de prueba 2",
-        direccion: "C. Cuauhtémoc 65, La Villa, 45100 Zapopan, Jal.",
-        telefono: "3314244142",
-        horario: "Abierto 24 Hrs",
-        urlGoogleMaps: "https://maps.app.goo.gl/RiqfseK5FeYE63Kq8",
-        long: "-103.3947719",
-        lat: "20.7244687",
-      },
+      jwtToken: this.jwtToken,
+      hospitalData: { ...this.hospital },
     };
   },
   methods: {
-    async createHospital() {
+    async updateHospital() {
       try {
         const response = await fetch(
-          "https://meddi-training.vercel.app/api/v1/hospital/create",
+          `https://meddi-training.vercel.app/api/v1/hospital/update/${this.hospitalData._id}`,
           {
-            method: "POST",
+            method: "PUT",
             headers: {
               Authorization: `Bearer ${this.jwtToken}`,
               "Content-Type": "application/json",
@@ -87,12 +114,12 @@ export default {
             body: JSON.stringify(this.hospitalData),
           }
         );
-
-        if (response.status === 201) {
+        console.log(response);
+        if (response.status === 200) {
           const data = await response.json();
-          console.log("Hospital created:", data);
+          console.log("Hospital updated:", data);
         } else {
-          console.error("Failed to create hospital:", response.status);
+          console.error("Failed to update hospital:", response.status);
         }
       } catch (error) {
         console.error("Error:", error);

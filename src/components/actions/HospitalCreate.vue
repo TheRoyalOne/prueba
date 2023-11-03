@@ -1,7 +1,7 @@
 <template>
   <div class="form-container h-4/5 overflow-auto">
-    <h1>Update Hospital</h1>
-    <form @submit.prevent="updateHospital">
+    <h1>Create Hospital</h1>
+    <form @submit.prevent="createHospital">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="name" v-model="hospitalData.name" required />
@@ -12,15 +12,6 @@
           type="text"
           id="direccion"
           v-model="hospitalData.direccion"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="urlGoogleMaps">Google Maps URL</label>
-        <input
-          type="text"
-          id="urlGoogleMaps"
-          v-model="hospitalData.urlGoogleMaps"
           required
         />
       </div>
@@ -43,20 +34,12 @@
         />
       </div>
       <div class="form-group">
-        <label for="municipio">Municipio</label>
+        <label for="urlGoogleMaps">Google Maps URL</label>
         <input
           type="text"
-          id="municipio"
-          v-model="hospitalData.municipio"
+          id="urlGoogleMaps"
+          v-model="hospitalData.urlGoogleMaps"
           required
-        />
-      </div>
-      <div class="form-group">
-        <label for="observaciones">Observaciones</label>
-        <input
-          type="text"
-          id="observaciones"
-          v-model="hospitalData.observaciones"
         />
       </div>
       <div class="form-group">
@@ -67,56 +50,43 @@
         <label for="lat">Latitude</label>
         <input type="text" id="lat" v-model="hospitalData.lat" required />
       </div>
-      <div class="form-group">
-        <label for="aseguradora">Aseguradora</label>
-        <input
-          type="text"
-          id="aseguradora"
-          v-model="hospitalData.aseguradora"
-          required
-        />
-      </div>
-      <button type="submit">Update Hospital</button>
+      <button type="submit">Create Hospital</button>
     </form>
   </div>
 </template>
 
 <script>
+import { useStore } from "@/store";
 export default {
-  name: "UpdateHospital",
+  name: "CreateHospital",
+  created() {
+    const store = useStore();
+    // Assign the jwtToken from the store to your component's data property
+    this.jwtToken = store.jwtToken;
+    console.log(this.jwtToken);
+  },
   data() {
     return {
       jwtToken:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTQ0N2QxN2NhMmYzMjBiOWU0NDIxYzIiLCJpYXQiOjE2OTg5ODk3ODMuOTQ3LCJleHAiOjE2OTg5OTMzODMuOTQ3fQ.XBBd0qLxTUhjmLIZFRCZ6g6eQ8dj4LYeM8Jw6HAYkZM", // Replace with your JWT token
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTQ0N2QxN2NhMmYzMjBiOWU0NDIxYzIiLCJpYXQiOjE2OTg5OTM5MzguODQsImV4cCI6MTY5ODk5NzUzOC44NH0.y6MefIlCA75flTHT2xYqPyM0_eNgGeFF0OsBo7eR2yc",
       hospitalData: {
-        name: "Hospital meddi zapopan",
-        foto: "",
-        logo: "",
+        name: "Hospital meddi de prueba 2",
         direccion: "C. Cuauhtémoc 65, La Villa, 45100 Zapopan, Jal.",
-        urlGoogleMaps: "https://maps.app.goo.gl/RiqfseK5FeYE63Kq8",
-        enabled: true,
         telefono: "3314244142",
         horario: "Abierto 24 Hrs",
-        municipio: "ZAPOPAN",
-        observaciones:
-          "Este hospital atiende todo tipo de pacientes y cuenta con diversas especialidades",
-        long: -103.3947719,
-        lat: 20.7244687,
-        aseguradora: [4],
-        _id: "65417d8ee043617e9cb1d836",
-        createdAt: "2023-10-31T22:19:58.417Z",
-        updatedAt: "2023-10-31T22:19:58.417Z",
-        __v: 0,
+        urlGoogleMaps: "https://maps.app.goo.gl/RiqfseK5FeYE63Kq8",
+        long: "-103.3947719",
+        lat: "20.7244687",
       },
     };
   },
   methods: {
-    async updateHospital() {
+    async createHospital() {
       try {
         const response = await fetch(
-          `https://meddi-training.vercel.app/api/v1/hospital/update/${this.hospitalData._id}`,
+          "https://meddi-training.vercel.app/api/v1/hospital/create",
           {
-            method: "PUT",
+            method: "POST",
             headers: {
               Authorization: `Bearer ${this.jwtToken}`,
               "Content-Type": "application/json",
@@ -124,12 +94,12 @@ export default {
             body: JSON.stringify(this.hospitalData),
           }
         );
-        console.log(response);
-        if (response.status === 200) {
+
+        if (response.status === 201) {
           const data = await response.json();
-          console.log("Hospital updated:", data);
+          console.log("Hospital created:", data);
         } else {
-          console.error("Failed to update hospital:", response.status);
+          console.error("Failed to create hospital:", response.status);
         }
       } catch (error) {
         console.error("Error:", error);

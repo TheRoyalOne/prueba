@@ -1,11 +1,9 @@
-// src/router/index.js
-
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../components/auth/Login.vue";
 import Signup from "../components/auth/Signup.vue";
 import Dashboard from "../components/Dashboard.vue";
-import HospitalUpdate from "../components/modals/HospitalUpdate.vue";
-import HospitalCreate from "../components/modals/HospitalCreate.vue";
+import HospitalUpdate from "../components/actions/HospitalUpdate.vue";
+import HospitalCreate from "../components/actions/HospitalCreate.vue";
 
 const routes = [
   {
@@ -17,7 +15,7 @@ const routes = [
         component: Login,
       },
       {
-        path: "dashboard/:jwtToken",
+        path: "dashboard",
         name: "dashboard",
         component: Dashboard,
       },

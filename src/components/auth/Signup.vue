@@ -42,7 +42,9 @@
           :class="{ error: cellphoneError }"
         />
       </div>
-      <button  class="bg-red-400"  type="submit" :disabled="submitDisabled">Signup</button>
+      <button class="bg-red-400" type="submit" :disabled="submitDisabled">
+        Signup
+      </button>
     </form>
     <a class="text-blue-500" href="/">Have an a account?</a>
   </div>
@@ -109,6 +111,8 @@ export default {
         if (response.status === 200) {
           const data = await response.json();
           console.log(data);
+          alert("Se ha creado el usuario correctamente");
+          this.$router.push({ path: `/` });
         } else {
           alert("There was an error with the request.");
         }
