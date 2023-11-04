@@ -12,6 +12,7 @@
     "font-awesome": "^4.7.0",
     "localforage": "^1.10.0",
     "pinia": "^2.1.7",
+    "sweetalert2": "^11.9.0",
     "vue": "^3.2.13",
     "vue-router": "^4.2.5"
   },

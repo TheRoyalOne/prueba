@@ -1,10 +1,17 @@
 <template>
   <div class="form-container h-full overflow-auto">
-    <h1>Update Hospital</h1>
+    <h1 v-if="selectedModal === 'edit'">Update Hospital</h1>
+    <h1 v-if="selectedModal === 'view'">View Hospital</h1>
     <form @submit.prevent="updateHospital">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" id="name" v-model="hospitalData.name" required />
+        <input
+          type="text"
+          id="name"
+          v-model="hospitalData.name"
+          required
+          :disabled="selectedModal === 'view'"
+        />
       </div>
       <div class="form-group">
         <label for="direccion">Direccion</label>
@@ -12,6 +19,7 @@
           type="text"
           id="direccion"
           v-model="hospitalData.direccion"
+          :disabled="selectedModal === 'view'"
           required
         />
       </div>
@@ -21,6 +29,7 @@
           type="text"
           id="urlGoogleMaps"
           v-model="hospitalData.urlGoogleMaps"
+          :disabled="selectedModal === 'view'"
           required
         />
       </div>
@@ -30,6 +39,7 @@
           type="text"
           id="telefono"
           v-model="hospitalData.telefono"
+          :disabled="selectedModal === 'view'"
           required
         />
       </div>
@@ -39,6 +49,7 @@
           type="text"
           id="horario"
           v-model="hospitalData.horario"
+          :disabled="selectedModal === 'view'"
           required
         />
       </div>
@@ -48,6 +59,7 @@
           type="text"
           id="municipio"
           v-model="hospitalData.municipio"
+          :disabled="selectedModal === 'view'"
           required
         />
       </div>
@@ -57,15 +69,28 @@
           type="text"
           id="observaciones"
           v-model="hospitalData.observaciones"
+          :disabled="selectedModal === 'view'"
         />
       </div>
       <div class="form-group">
         <label for="long">Longitude</label>
-        <input type="text" id="long" v-model="hospitalData.long" required />
+        <input
+          type="text"
+          id="long"
+          v-model="hospitalData.long"
+          required
+          :disabled="selectedModal === 'view'"
+        />
       </div>
       <div class="form-group">
         <label for="lat">Latitude</label>
-        <input type="text" id="lat" v-model="hospitalData.lat" required />
+        <input
+          type="text"
+          id="lat"
+          v-model="hospitalData.lat"
+          required
+          :disabled="selectedModal === 'view'"
+        />
       </div>
       <div class="form-group">
         <label for="aseguradora">Aseguradora</label>
@@ -73,31 +98,92 @@
           type="text"
           id="aseguradora"
           v-model="hospitalData.aseguradora"
+          :disabled="selectedModal === 'view'"
           required
         />
       </div>
-      <button type="submit">Update Hospital</button>
+
+      <div v-if="selectedModal === 'view'">
+        <div class="form-group">
+          <label for="createdAt">createdAt</label>
+          <input
+            type="text"
+            id="createdAt"
+            v-model="hospitalData.createdAt"
+            :disabled="selectedModal === 'view'"
+          />
+        </div>
+        <div class="form-group">
+          <label for="updatedAt">updatedAt</label>
+          <input
+            type="text"
+            id="updatedAt"
+            v-model="hospitalData.updatedAt"
+            :disabled="selectedModal === 'view'"
+          />
+        </div>
+        <div class="form-group">
+          <label for="Logo">Logo</label>
+          <img :src="hospitalData.logo" alt="Logo" width="50" height="50" />
+        </div>
+        <div class="form-group">
+          <label for="foto">foto</label>
+          <img :src="hospitalData.foto" alt="foto" width="50" height="50" />
+        </div>
+        <div class="form-group">
+          <label for="enabled">enabled</label>
+          <input
+            type="text"
+            id="enabled"
+            v-model="hospitalData.enabled"
+            :disabled="selectedModal === 'view'"
+          />
+        </div>
+        <div class="form-group">
+          <label for="estadoCode">estadoCode</label>
+          <input
+            type="text"
+            id="estadoCode"
+            v-model="hospitalData.estadoCode"
+            :disabled="selectedModal === 'view'"
+          />
+        </div>
+        <div class="form-group">
+          <label for="horario">horario</label>
+          <input
+            type="text"
+            id="horario"
+            v-model="hospitalData.horario"
+            :disabled="selectedModal === 'view'"
+          />
+        </div>
+      </div>
+      <div v-if="selectedModal === 'edit'">
+        <button type="submit">Update Hospital</button>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
 import { useStore } from "@/store";
+import Swal from "sweetalert2";
 export default {
   name: "UpdateHospital",
 
   props: {
     hospital: Object,
+    modal: String,
   },
   created() {
     const store = useStore();
     this.jwtToken = store.jwtToken;
-    console.log(this.jwtToken);
   },
   data() {
     return {
       jwtToken: this.jwtToken,
       hospitalData: { ...this.hospital },
+      selectedModal: this.modal,
     };
   },
   methods: {
@@ -116,13 +202,22 @@ export default {
         );
         console.log(response);
         if (response.status === 200) {
-          const data = await response.json();
-          console.log("Hospital updated:", data);
+          Swal.fire({
+            title: `Hospital ${this.hospitalData.name} actualizado`,
+            position: "top-right",
+            icon: "success",
+          });
         } else {
-          console.error("Failed to update hospital:", response.status);
+          Swal.fire({
+            title: `Error actualizando hospital ${this.hospitalData.name}`,
+            icon: "error",
+          });
         }
       } catch (error) {
-        console.error("Error:", error);
+        Swal.fire({
+          title: `Error encontrado`,
+          icon: "error",
+        });
       }
     },
   },

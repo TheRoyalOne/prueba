@@ -1,22 +1,20 @@
 <template>
     <div class="modal" v-if="isModalVisible" @click="closeModal">
       <div class="modal-content h-4/5" @click.stop>
-        <HospitalUpdate class=" " :hospital="selectedHospital" :modal="selectedModal" @close-modal="closeModal" />
+        <HospitalCreate class=" " @close-modal="closeModal" />
       </div>
     </div>
   </template>
   
   <script>
-  import HospitalUpdate from "@/components/actions/HospitalUpdate.vue";
+  import HospitalCreate from "@/components/actions/HospitalCreate.vue";
   
   export default {
     props: {
       showModal: Boolean,
-      selectedHospital: Object,
-      selectedModal: String
     },
     components: {
-      HospitalUpdate,
+        HospitalCreate,
     },
     data() {
       return {

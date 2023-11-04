@@ -1,8 +1,19 @@
 <template>
   <div class="w-4/5 h-4/5 text-ellipsis">
-    <h1>Hospitales</h1>
-    <!-- Display the hospital data in a responsive table -->
-    <div class="table-container overflow-auto w-full h-full">
+    <div class="w-full flex">
+      <h1 class="flex-grow">Hospitales</h1>
+      <button
+        class="bg-violet-500 p-2 flex space-x-1"
+        @click="createHospital()"
+      >
+        Create Hospital<img
+          src="@/assets/hospital-regular.svg"
+          alt="SVG Image"
+          class="h-8 w-8"
+        />
+      </button>
+    </div>
+    <div class="table-container overflow-auto w-full h-5/6">
       <table class="table bg-white">
         <thead>
           <tr>
@@ -56,7 +67,6 @@
       </table>
     </div>
 
-    <!-- Paginator controls -->
     <div class="paginator">
       <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
       <span>Page {{ currentPage }} of {{ totalPages }}</span>
@@ -68,33 +78,39 @@
   <ModalHospitalUpdate
     :showModal="showModal"
     :selectedHospital="selectedHospital"
+    :selectedModal="selectedModal"
     @close-modal="closeModal"
   />
+  <ModalHospitalCreate :showModal="showCreateModal" />
 </template>
 
 <script>
 import { useStore } from "@/store";
-import ModalHospitalUpdate from "@/components/modals/ModalHospitalUpdate.vue"; // Import the ModalHospitalUpdate component here
+import ModalHospitalUpdate from "@/components/modals/ModalHospitalUpdate.vue";
+import ModalHospitalCreate from "./modals/ModalHospitalCreate.vue";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export default {
   name: "DashBoard",
   components: {
     ModalHospitalUpdate,
+    ModalHospitalCreate,
   },
   data() {
     return {
       jwtToken: "",
-      hospitals: [], // Array to store hospital data
-      currentPage: 1, // Current page
-      totalPages: 0, // Total number of pages
-      rowsPerPage: 100, // Number of rows per page
+      hospitals: [],
+      currentPage: 1,
+      totalPages: 0,
+      rowsPerPage: 100,
       showModal: false,
+      showCreateModal: false,
+      selectedModal: "",
       selectedHospital: null,
     };
   },
   created() {
     const store = useStore();
-    // Assign the jwtToken from the store to your component's data property
     this.jwtToken = store.jwtToken;
     console.log(this.jwtToken);
     if (!this.jwtToken) {
@@ -121,10 +137,18 @@ export default {
           this.hospitals = data.data.data;
           this.totalPages = data.data.totalPages;
         } else {
-          console.error("Failed to fetch hospital data:", response.status);
+          Swal.fire({
+            title: `Error obteniendo hospitales`,
+            text: this.response.status,
+            icon: "error",
+          });
         }
       } catch (error) {
-        console.error("Error:", error);
+        Swal.fire({
+          title: `Error obteniendo hospitales`,
+          text: error,
+          icon: "error",
+        });
       }
     },
     prevPage() {
@@ -139,24 +163,26 @@ export default {
         this.getHospitals();
       }
     },
-
-    // Function to log the complete object when the "View" button is clicked
     viewHospital(hospital) {
-      console.log("View Hospital:", hospital);
-    },
-
-    // Function to log the complete object when the "Edit" button is clicked
-
-    editHospital(hospital) {
-      console.log("Edit Hospital:", hospital);
-      console.log(this.showModal);
       this.selectedHospital = hospital;
+      this.selectedModal = "view";
       this.showModal = true;
     },
 
+    editHospital(hospital) {
+      this.selectedHospital = hospital;
+      this.selectedModal = "edit";
+      this.showModal = true;
+    },
+
+    createHospital() {
+      this.showCreateModal = true;
+    },
+
     closeModal() {
-      this.selectedHospital = null; // Reset the selected hospital
-      this.showModal = false; // Close the modal
+      this.selectedHospital = null; 
+      this.showModal = false; 
+      this.showCreateModal = false;
     },
   },
 };

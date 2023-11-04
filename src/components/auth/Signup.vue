@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "SignUp",
   data() {
@@ -109,15 +110,26 @@ export default {
         );
 
         if (response.status === 200) {
-          const data = await response.json();
-          console.log(data);
-          alert("Se ha creado el usuario correctamente");
+          Swal.fire({
+            title: "Usuario creado",
+            text: "Inicie sesión",
+            position: "top-right",
+            icon: "success",
+          });
           this.$router.push({ path: `/` });
         } else {
-          alert("There was an error with the request.");
+          Swal.fire({
+            title: "Error creando usuario",
+            text: "Verifique sus datos ingresados",
+            icon: "error",
+          });
         }
       } catch (error) {
-        console.error("Error:", error);
+        Swal.fire({
+          title: "Error encontrado",
+          text: error,
+          icon: "error",
+        });
       }
     },
   },

@@ -57,13 +57,13 @@
 
 <script>
 import { useStore } from "@/store";
+import Swal from "sweetalert2";
+
 export default {
   name: "CreateHospital",
   created() {
     const store = useStore();
-    // Assign the jwtToken from the store to your component's data property
     this.jwtToken = store.jwtToken;
-    console.log(this.jwtToken);
   },
   data() {
     return {
@@ -95,14 +95,24 @@ export default {
           }
         );
 
-        if (response.status === 201) {
-          const data = await response.json();
-          console.log("Hospital created:", data);
+        if (response.status === 200) {
+          Swal.fire({
+            title: `Hospital ${this.hospitalData.name} creado`,
+            position: "top-right",
+            icon: "success",
+          });
         } else {
-          console.error("Failed to create hospital:", response.status);
+          Swal.fire({
+            title: `Error creando hospital ${this.hospitalData.name}`,
+            icon: "error",
+          });
         }
       } catch (error) {
-        console.error("Error:", error);
+        Swal.fire({
+          title: `Error encontrado `,
+          text: error,
+          icon: "error",
+        });
       }
     },
   },

@@ -32,9 +32,11 @@
 
 <script>
 import { useStore } from "@/store";
+import Swal from "sweetalert2";
+
 export default {
   name: "LogIn",
-  created(){
+  created() {
     const store = useStore();
     this.jwtToken = store.jwtToken;
   },
@@ -82,17 +84,29 @@ export default {
 
         if (response.status === 200) {
           const data = await response.json();
-          console.log(data);
           const jwtToken = data.data.jwtToken;
-          console.log(jwtToken);
-          const store = useStore(); 
-          store.setJwtToken(jwtToken); 
+          const store = useStore();
+          store.setJwtToken(jwtToken);
           this.$router.push({ path: `/dashboard` });
+          Swal.fire({
+            title: "Bienvenido",
+            text: this.email,
+            position: "top-right",
+            icon: "success",
+          });
         } else {
-          alert("There was an error with the request.");
+          Swal.fire({
+            title: "Login Fallido",
+            text: "Porfavor verifique su información",
+            icon: "error",
+          });
         }
       } catch (error) {
-        console.error("Error:", error);
+        Swal.fire({
+          title: "Error iniciando sesión",
+          text: error,
+          icon: "error",
+        });
       }
     },
   },
