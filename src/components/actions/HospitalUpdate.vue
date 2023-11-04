@@ -1,11 +1,14 @@
 <template>
-  <div class="form-container h-full overflow-auto">
+  <div
+    class="form-container h-full overflow-auto bg-white p-2 rounded-lg shadow-md"
+  >
     <h1 v-if="selectedModal === 'edit'">Modifica Hospital</h1>
     <h1 v-if="selectedModal === 'view'">Ver Hospital</h1>
     <form @submit.prevent="updateHospital">
-      <div class="form-group">
-        <label for="name">Nombre</label>
+      <div class="form-group pb-3">
+        <label for="name" class="font-bold">Nombre</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="name"
           v-model="hospitalData.name"
@@ -13,9 +16,10 @@
           :disabled="selectedModal === 'view'"
         />
       </div>
-      <div class="form-group">
-        <label for="direccion">Dirección</label>
+      <div class="form-group pb-3">
+        <label for="direccion" class="font-bold">Dirección</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="direccion"
           v-model="hospitalData.direccion"
@@ -23,9 +27,10 @@
           required
         />
       </div>
-      <div class="form-group">
-        <label for="urlGoogleMaps">Google Maps URL</label>
+      <div class="form-group pb-3">
+        <label for="urlGoogleMaps" class="font-bold">Google Maps URL</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="urlGoogleMaps"
           v-model="hospitalData.urlGoogleMaps"
@@ -33,9 +38,10 @@
           required
         />
       </div>
-      <div class="form-group">
-        <label for="telefono">Telefono</label>
+      <div class="form-group pb-3">
+        <label for="telefono" class="font-bold">Telefono</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="telefono"
           v-model="hospitalData.telefono"
@@ -43,9 +49,10 @@
           required
         />
       </div>
-      <div class="form-group">
-        <label for="horario">Horario</label>
+      <div class="form-group pb-3">
+        <label for="horario" class="font-bold">Horario</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="horario"
           v-model="hospitalData.horario"
@@ -53,9 +60,10 @@
           required
         />
       </div>
-      <div class="form-group">
-        <label for="municipio">Municipio</label>
+      <div class="form-group pb-3">
+        <label for="municipio" class="font-bold">Municipio</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="municipio"
           v-model="hospitalData.municipio"
@@ -63,18 +71,20 @@
           required
         />
       </div>
-      <div class="form-group">
-        <label for="observaciones">Observaciones</label>
+      <div class="form-group pb-3">
+        <label for="observaciones" class="font-bold">Observaciones</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="observaciones"
           v-model="hospitalData.observaciones"
           :disabled="selectedModal === 'view'"
         />
       </div>
-      <div class="form-group">
-        <label for="long">Longitud</label>
+      <div class="form-group pb-3">
+        <label for="long" class="font-bold">Longitud</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="long"
           v-model="hospitalData.long"
@@ -82,9 +92,10 @@
           :disabled="selectedModal === 'view'"
         />
       </div>
-      <div class="form-group">
-        <label for="lat">Latitud</label>
+      <div class="form-group pb-3">
+        <label for="lat" class="font-bold">Latitud</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="lat"
           v-model="hospitalData.lat"
@@ -92,9 +103,10 @@
           :disabled="selectedModal === 'view'"
         />
       </div>
-      <div class="form-group">
-        <label for="aseguradora">Aseguradora</label>
+      <div class="form-group pb-3">
+        <label for="aseguradora" class="font-bold">Aseguradora</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="aseguradora"
           v-model="hospitalData.aseguradora"
@@ -104,53 +116,60 @@
       </div>
 
       <div v-if="selectedModal === 'view'">
-        <div class="form-group">
-          <label for="createdAt">Fecha de creación</label>
+        <div class="form-group pb-3">
+          <label for="createdAt" class="font-bold">Fecha de creación</label>
           <input
+            class="w-full p-2 border border-gray-300 rounded-md"
             type="text"
             id="createdAt"
             v-model="hospitalData.createdAt"
             :disabled="selectedModal === 'view'"
           />
         </div>
-        <div class="form-group">
-          <label for="updatedAt">Fecha de Actualización</label>
+        <div class="form-group pb-3">
+          <label for="updatedAt" class="font-bold"
+            >Fecha de Actualización</label
+          >
           <input
+            class="w-full p-2 border border-gray-300 rounded-md"
             type="text"
             id="updatedAt"
             v-model="hospitalData.updatedAt"
             :disabled="selectedModal === 'view'"
           />
         </div>
-        <div class="form-group">
-          <label for="Logo">Logo</label>
+        <div class="form-group pb-3">
+          <label for="Logo" class="font-bold">Logo</label>
           <img :src="hospitalData.logo" alt="Logo" width="50" height="50" />
         </div>
-        <div class="form-group">
-          <label for="foto">Foto</label>
+        <div class="form-group pb-3">
+          <label for="foto" class="font-bold">Foto</label>
           <img :src="hospitalData.foto" alt="foto" width="50" height="50" />
         </div>
-        <div class="form-group">
-          <label for="enabled">Activo</label>
+        <div class="form-group pb-3">
+          <label for="enabled" class="font-bold">Activo</label>
           <input
+            class="w-full p-2 border border-gray-300 rounded-md"
             type="text"
             id="enabled"
             v-model="hospitalData.enabled"
             :disabled="selectedModal === 'view'"
           />
         </div>
-        <div class="form-group">
-          <label for="estadoCode">Código de Estado</label>
+        <div class="form-group pb-3">
+          <label for="estadoCode" class="font-bold">Código de Estado</label>
           <input
+            class="w-full p-2 border border-gray-300 rounded-md"
             type="text"
             id="estadoCode"
             v-model="hospitalData.estadoCode"
             :disabled="selectedModal === 'view'"
           />
         </div>
-        <div class="form-group">
-          <label for="horario">Horario</label>
+        <div class="form-group pb-3">
+          <label for="horario" class="font-bold">Horario</label>
           <input
+            class="w-full p-2 border border-gray-300 rounded-md"
             type="text"
             id="horario"
             v-model="hospitalData.horario"
@@ -159,7 +178,12 @@
         </div>
       </div>
       <div v-if="selectedModal === 'edit'">
-        <button type="submit">Actualizar </button>
+        <button
+          type="submit"
+          class="bg-gradient-to-r p-4 from-teal-700 via-teal-500 to-teal-300 hover:bg-teal-600 font-bold rounded-lg py-1 text-teal-50 focus:ring-2 focus:ring-teal-400"
+        >
+          Actualizar
+        </button>
       </div>
     </form>
   </div>
@@ -223,41 +247,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.form-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-  margin-bottom: 10px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-</style>

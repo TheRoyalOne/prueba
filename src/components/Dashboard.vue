@@ -3,7 +3,7 @@
     <div class="w-full flex">
       <h1 class="flex-grow text-4xl font-bold text-teal-200">Hospitales</h1>
       <button
-        class="bg-gradient-to-r from-teal-500 via-sky-600 to-blue-950 p-2 flex space-x-1 items-center rounded-md"
+        class="bg-gradient-to-r from-teal-500 via-sky-600 to-blue-950 p-2 flex space-x-1 items-center rounded-md hover:bg-teal-600 font-bold py-1 text-teal-50 focus:ring-2 focus:ring-teal-400"
         @click="createHospital()"
       >
         <h1 class="font-bold text-teal-50">Nuevo</h1>

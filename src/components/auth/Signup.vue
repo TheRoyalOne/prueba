@@ -6,7 +6,7 @@
     >
       <form
         @submit.prevent="signup"
-        class="flex flex-col space-y-4 font-semibold"
+        class="flex flex-col space-y-4 font-semibold text-xl"
       >
         <div class="form-group flex flex-col space-y-2">
           <label for="username" class="text-teal-50">Username:</label>

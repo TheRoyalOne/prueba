@@ -1,56 +1,85 @@
 <template>
-  <div class="form-container h-full overflow-auto">
+  <div
+    class="form-container h-full overflow-auto bg-white p-4 rounded-lg shadow-md"
+  >
     <h1>Crea Hospital</h1>
     <form @submit.prevent="createHospital">
-      <div class="form-group">
-        <label for="name">Nombre</label>
-        <input type="text" id="name" v-model="hospitalData.name" required />
-      </div>
-      <div class="form-group">
-        <label for="direccion">Dirección</label>
+      <div class="form-group mb-4">
+        <label for="name" class="font-bold">Nombre</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
+          type="text"
+          id="name"
+          v-model="hospitalData.name"
+          required
+        />
+      </div>
+      <div class="form-group mb-4">
+        <label for="direccion" class="font-bold">Dirección</label>
+        <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="direccion"
           v-model="hospitalData.direccion"
           required
         />
       </div>
-      <div class="form-group">
-        <label for="telefono">Telefono</label>
+      <div class="form-group mb-4">
+        <label for="telefono" class="font-bold">Telefono</label>
         <input
           type="text"
+          class="w-full p-2 border border-gray-300 rounded-md"
           id="telefono"
           v-model="hospitalData.telefono"
           required
         />
       </div>
-      <div class="form-group">
-        <label for="horario">Horario</label>
+      <div class="form-group mb-4">
+        <label for="horario" class="font-bold">Horario</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="horario"
           v-model="hospitalData.horario"
           required
         />
       </div>
-      <div class="form-group">
-        <label for="urlGoogleMaps">Google Maps URL</label>
+      <div class="form-group mb-4">
+        <label for="urlGoogleMaps" class="font-bold">Google Maps URL</label>
         <input
+          class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
           id="urlGoogleMaps"
           v-model="hospitalData.urlGoogleMaps"
           required
         />
       </div>
-      <div class="form-group">
-        <label for="long">Longitud</label>
-        <input type="text" id="long" v-model="hospitalData.long" required />
+      <div class="form-group mb-4">
+        <label for="long" class="font-bold">Longitud</label>
+        <input
+          class="w-full p-2 border border-gray-300 rounded-md"
+          type="text"
+          id="long"
+          v-model="hospitalData.long"
+          required
+        />
       </div>
-      <div class="form-group">
-        <label for="lat">Latitud</label>
-        <input type="text" id="lat" v-model="hospitalData.lat" required />
+      <div class="form-group mb-4">
+        <label for="lat" class="font-bold">Latitud</label>
+        <input
+          class="w-full p-2 border border-gray-300 rounded-md"
+          type="text"
+          id="lat"
+          v-model="hospitalData.lat"
+          required
+        />
       </div>
-      <button type="submit">Crear Hospital</button>
+      <button
+        class="w-full p-2 border bg-gradient-to-r from-teal-700 via-teal-500 to-teal-300 hover:bg-teal-600 font-bold rounded-lg py-1 text-teal-50 focus:ring-2 focus:ring-teal-400"
+        type="submit"
+      >
+        Crear Hospital
+      </button>
     </form>
   </div>
 </template>
@@ -117,41 +146,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.form-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-  margin-bottom: 10px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-</style>

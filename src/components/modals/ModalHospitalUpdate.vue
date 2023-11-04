@@ -1,6 +1,10 @@
 <template>
-  <div class="modal" v-if="isModalVisible" @click="closeModal">
-    <div class="modal-content h-4/5" @click.stop>
+  <div
+    class="modal fixed top-0 left-0 w-full h-full bg-opacity-60 bg-black flex justify-center items-center z-50 cursor-pointer"
+    v-if="isModalVisible"
+    @click="closeModal"
+  >
+    <div class="modal-content bg-white p-4 rounded-lg shadow-md cursor-default h-4/5" @click.stop>
       <HospitalUpdate
         class=" "
         :hospital="selectedHospital"
@@ -57,28 +61,4 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  cursor: pointer;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  cursor: auto;
-}
-</style>
   
