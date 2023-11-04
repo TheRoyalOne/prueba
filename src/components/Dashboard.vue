@@ -42,7 +42,7 @@
             <td class="px-4 text-center">{{ hospital.name }}</td>
             <td class="px-4 text-center">
               <img
-                class=""
+                class="w-28"
                 :src="
                   hospital.foto
                     ? hospital.foto
@@ -136,7 +136,7 @@ export default {
       hospitals: [],
       currentPage: 1,
       totalPages: 0,
-      rowsPerPage: 100,
+      rowsPerPage: 10,
       showModal: false,
       showCreateModal: false,
       selectedModal: "",
