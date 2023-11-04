@@ -1,10 +1,10 @@
 <template>
   <div class="form-container h-full overflow-auto">
-    <h1 v-if="selectedModal === 'edit'">Update Hospital</h1>
-    <h1 v-if="selectedModal === 'view'">View Hospital</h1>
+    <h1 v-if="selectedModal === 'edit'">Modifica Hospital</h1>
+    <h1 v-if="selectedModal === 'view'">Ver Hospital</h1>
     <form @submit.prevent="updateHospital">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">Nombre</label>
         <input
           type="text"
           id="name"
@@ -14,7 +14,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="direccion">Direccion</label>
+        <label for="direccion">Dirección</label>
         <input
           type="text"
           id="direccion"
@@ -73,7 +73,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="long">Longitude</label>
+        <label for="long">Longitud</label>
         <input
           type="text"
           id="long"
@@ -83,7 +83,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="lat">Latitude</label>
+        <label for="lat">Latitud</label>
         <input
           type="text"
           id="lat"
@@ -105,7 +105,7 @@
 
       <div v-if="selectedModal === 'view'">
         <div class="form-group">
-          <label for="createdAt">createdAt</label>
+          <label for="createdAt">Fecha de creación</label>
           <input
             type="text"
             id="createdAt"
@@ -114,7 +114,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="updatedAt">updatedAt</label>
+          <label for="updatedAt">Fecha de Actualización</label>
           <input
             type="text"
             id="updatedAt"
@@ -127,11 +127,11 @@
           <img :src="hospitalData.logo" alt="Logo" width="50" height="50" />
         </div>
         <div class="form-group">
-          <label for="foto">foto</label>
+          <label for="foto">Foto</label>
           <img :src="hospitalData.foto" alt="foto" width="50" height="50" />
         </div>
         <div class="form-group">
-          <label for="enabled">enabled</label>
+          <label for="enabled">Activo</label>
           <input
             type="text"
             id="enabled"
@@ -140,7 +140,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="estadoCode">estadoCode</label>
+          <label for="estadoCode">Código de Estado</label>
           <input
             type="text"
             id="estadoCode"
@@ -149,7 +149,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="horario">horario</label>
+          <label for="horario">Horario</label>
           <input
             type="text"
             id="horario"
@@ -159,7 +159,7 @@
         </div>
       </div>
       <div v-if="selectedModal === 'edit'">
-        <button type="submit">Update Hospital</button>
+        <button type="submit">Actualizar </button>
       </div>
     </form>
   </div>

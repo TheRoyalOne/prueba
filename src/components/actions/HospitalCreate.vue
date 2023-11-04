@@ -1,13 +1,13 @@
 <template>
   <div class="form-container h-full overflow-auto">
-    <h1>Create Hospital</h1>
+    <h1>Crea Hospital</h1>
     <form @submit.prevent="createHospital">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">Nombre</label>
         <input type="text" id="name" v-model="hospitalData.name" required />
       </div>
       <div class="form-group">
-        <label for="direccion">Direccion</label>
+        <label for="direccion">Dirección</label>
         <input
           type="text"
           id="direccion"
@@ -43,14 +43,14 @@
         />
       </div>
       <div class="form-group">
-        <label for="long">Longitude</label>
+        <label for="long">Longitud</label>
         <input type="text" id="long" v-model="hospitalData.long" required />
       </div>
       <div class="form-group">
-        <label for="lat">Latitude</label>
+        <label for="lat">Latitud</label>
         <input type="text" id="lat" v-model="hospitalData.lat" required />
       </div>
-      <button type="submit">Create Hospital</button>
+      <button type="submit">Crear Hospital</button>
     </form>
   </div>
 </template>

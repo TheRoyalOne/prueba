@@ -25,7 +25,7 @@
             <th>Nombre</th>
             <th>Foto</th>
             <th>Logo</th>
-            <th>Direccion</th>
+            <th>Dirección</th>
             <th>Ubicación</th>
             <th>Telefono</th>
             <th>Horario</th>
