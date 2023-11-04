@@ -1,32 +1,48 @@
 <template>
-  <div class="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">
-    <h1>Login</h1>
-    <form @submit.prevent="login">
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          v-model="email"
-          @input="validateForm"
-          :class="{ error: emailError }"
-        />
+  <div class="flex flex-col items-center space-y-4">
+    <h1 class="tt-4xl font-boldex text-teal-200">Login</h1>
+    <div
+      class="bg-gradient-to-r from-teal-500 via-sky-600 to-blue-950 rounded-lg p-8 flex space-y-3 flex-col"
+    >
+      <form
+        @submit.prevent="login"
+        class="flex flex-col space-y-4 font-semibold"
+      >
+        <div class="form-group flex flex-col space-y-2">
+          <label for="email" class="text-teal-50">Email:</label>
+          <input
+            type="email"
+            id="email"
+            v-model="email"
+            @input="validateForm"
+            :class="{ error: emailError }"
+            class="rounded-sm focus:ring-2 focus:ring-red-500"
+          />
+        </div>
+        <div class="form-group flex flex-col space-y-2">
+          <label for="password" class="text-teal-50">Password:</label>
+          <input
+            type="password"
+            id="password"
+            v-model="password"
+            @input="validateForm"
+            :class="{ error: passwordError }"
+            class="rounded-sm focus:ring-2 focus:ring-red-500"
+          />
+        </div>
+        <button
+          class="bg-gradient-to-r from-teal-700 via-teal-500 to-teal-300 font-bold rounded-lg py-1 text-teal-50 focus:ring-2 focus:ring-teal-400"
+          :class="{ 'hover:bg-teal-600': !submitDisabled }"
+          type="submit"
+          :disabled="submitDisabled"
+        >
+          Login
+        </button>
+      </form>
+      <div class="w-full flex justify-end">
+        <a class="text-teal-500 underline" href="/signup">Create account</a>
       </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          v-model="password"
-          @input="validateForm"
-          :class="{ error: passwordError }"
-        />
-      </div>
-      <button class="bg-red-400" type="submit" :disabled="submitDisabled">
-        Login
-      </button>
-    </form>
-    <a class="text-blue-500" href="/signup">Create account</a>
+    </div>
   </div>
 </template>
 
@@ -91,7 +107,6 @@ export default {
           Swal.fire({
             title: "Bienvenido",
             text: this.email,
-            position: "top-right",
             icon: "success",
           });
         } else {
@@ -112,3 +127,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.swal2-modal {
+  width: auto !important;
+}
+</style>

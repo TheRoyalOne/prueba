@@ -204,9 +204,9 @@ export default {
         if (response.status === 200) {
           Swal.fire({
             title: `Hospital ${this.hospitalData.name} actualizado`,
-            position: "top-right",
             icon: "success",
           });
+          this.$emit("hospital-updated");
         } else {
           Swal.fire({
             title: `Error actualizando hospital ${this.hospitalData.name}`,

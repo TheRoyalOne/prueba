@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Login from "../components/auth/Login.vue";
 import Signup from "../components/auth/Signup.vue";
 import Dashboard from "../components/Dashboard.vue";
-import HospitalUpdate from "../components/actions/HospitalUpdate.vue";
-import HospitalCreate from "../components/actions/HospitalCreate.vue";
 
 const routes = [
   {
@@ -23,16 +21,6 @@ const routes = [
         path: "signup",
         name: "signup",
         component: Signup,
-      },
-      {
-        path: "update",
-        name: "update",
-        component: HospitalUpdate,
-      },
-      {
-        path: "create",
-        name: "create",
-        component: HospitalCreate,
       },
     ],
   },

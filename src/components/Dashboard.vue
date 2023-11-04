@@ -1,22 +1,27 @@
 <template>
-  <div class="w-4/5 h-4/5 text-ellipsis">
+  <div class="w-4/5 h-4/5 text-ellipsis flex flex-col space-y-3">
     <div class="w-full flex">
-      <h1 class="flex-grow">Hospitales</h1>
+      <h1 class="flex-grow text-4xl font-bold text-teal-200">Hospitales</h1>
       <button
-        class="bg-violet-500 p-2 flex space-x-1"
+        class="bg-gradient-to-r from-teal-500 via-sky-600 to-blue-950 p-2 flex space-x-1 items-center rounded-md"
         @click="createHospital()"
       >
-        Create Hospital<img
+        <h1 class="font-bold text-teal-50">Nuevo</h1>
+        <img
           src="@/assets/hospital-regular.svg"
           alt="SVG Image"
           class="h-8 w-8"
         />
       </button>
     </div>
-    <div class="table-container overflow-auto w-full h-5/6">
-      <table class="table bg-white">
-        <thead>
-          <tr>
+    <div class="table-container overflow-auto w-full h-5/6 rounded-lg">
+      <table
+        class="table bg-teal-50 text-gray-600 font-bold w-full rounded-lg p-1"
+      >
+        <thead
+          class="sticky top-0 bg-teal-100 text-indigo-950 z-10 rounded-lg p-4 text-xl"
+        >
+          <tr class="text-center">
             <th>Nombre</th>
             <th>Foto</th>
             <th>Logo</th>
@@ -28,39 +33,47 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="p-4">
           <tr v-for="hospital in hospitals" :key="hospital._id">
-            <td>{{ hospital.name }}</td>
-            <td>
+            <td class="px-4 text-center">{{ hospital.name }}</td>
+            <td class="px-4 text-center">
               <img :src="hospital.foto" alt="Foto" width="50" height="50" />
             </td>
-            <td>
+            <td class="px-4 text-center">
               <img :src="hospital.logo" alt="Logo" width="50" height="50" />
             </td>
-            <td>{{ hospital.direccion }}</td>
-            <td>
+            <td class="px-4 text-center">{{ hospital.direccion }}</td>
+            <td class="px-4 text-center">
               <a :href="hospital.urlGoogleMaps" target="_blank"
                 >Ubicación en Maps</a
               >
             </td>
-            <td>{{ hospital.telefono }}</td>
-            <td>{{ hospital.horario }}</td>
-            <td>{{ hospital.municipio }}</td>
-            <td class="flex space-x-1">
-              <button class="bg-green-500 p-2" @click="viewHospital(hospital)">
-                <img
-                  src="@/assets/eye-solid.svg"
-                  alt="SVG Image"
-                  class="h-8 w-8"
-                />
-              </button>
-              <button class="bg-orange-500 p-2" @click="editHospital(hospital)">
-                <img
-                  src="@/assets/pencil-solid.svg"
-                  alt="SVG Image"
-                  class="h-8 w-8"
-                />
-              </button>
+            <td class="px-4 text-center">{{ hospital.telefono }}</td>
+            <td class="px-4 text-center">{{ hospital.horario }}</td>
+            <td class="px-4 text-center">{{ hospital.municipio }}</td>
+            <td class="content-center">
+              <div class="flex space-x-2">
+                <button
+                  class="bg-green-500 p-2 rounded-full"
+                  @click="viewHospital(hospital)"
+                >
+                  <img
+                    src="@/assets/eye-solid.svg"
+                    alt="SVG Image"
+                    class="h-6 w-6"
+                  />
+                </button>
+                <button
+                  class="bg-orange-500 p-2 rounded-full"
+                  @click="editHospital(hospital)"
+                >
+                  <img
+                    src="@/assets/pencil-solid.svg"
+                    alt="SVG Image"
+                    class="h-6 w-6"
+                  />
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -81,7 +94,7 @@
     :selectedModal="selectedModal"
     @close-modal="closeModal"
   />
-  <ModalHospitalCreate :showModal="showCreateModal" />
+  <ModalHospitalCreate :showModal="showCreateModal" @close-modal="closeModal" />
 </template>
 
 <script>
@@ -180,9 +193,10 @@ export default {
     },
 
     closeModal() {
-      this.selectedHospital = null; 
-      this.showModal = false; 
+      this.selectedHospital = null;
+      this.showModal = false;
       this.showCreateModal = false;
+      this.getHospitals();
     },
   },
 };

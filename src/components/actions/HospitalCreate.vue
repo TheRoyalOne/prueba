@@ -1,5 +1,5 @@
 <template>
-  <div class="form-container h-4/5 overflow-auto">
+  <div class="form-container h-full overflow-auto">
     <h1>Create Hospital</h1>
     <form @submit.prevent="createHospital">
       <div class="form-group">
@@ -67,11 +67,10 @@ export default {
   },
   data() {
     return {
-      jwtToken:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NTQ0N2QxN2NhMmYzMjBiOWU0NDIxYzIiLCJpYXQiOjE2OTg5OTM5MzguODQsImV4cCI6MTY5ODk5NzUzOC44NH0.y6MefIlCA75flTHT2xYqPyM0_eNgGeFF0OsBo7eR2yc",
+      jwtToken: this.jwtToken,
       hospitalData: {
-        name: "Hospital meddi de prueba 2",
-        direccion: "C. Cuauhtémoc 65, La Villa, 45100 Zapopan, Jal.",
+        name: "Nuevo Hospital",
+        direccion: "Prueba 65, La Villa, 45100 Guadalajara, Jal.",
         telefono: "3314244142",
         horario: "Abierto 24 Hrs",
         urlGoogleMaps: "https://maps.app.goo.gl/RiqfseK5FeYE63Kq8",
@@ -98,9 +97,9 @@ export default {
         if (response.status === 200) {
           Swal.fire({
             title: `Hospital ${this.hospitalData.name} creado`,
-            position: "top-right",
             icon: "success",
           });
+          this.$emit("hospital-created");
         } else {
           Swal.fire({
             title: `Error creando hospital ${this.hospitalData.name}`,
