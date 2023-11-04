@@ -1,11 +1,13 @@
 <template>
   <div
-    class="form-container h-full overflow-auto bg-white p-4 rounded-lg shadow-md"
+    class="form-container h-full overflow-auto bg-opacity-0 p-4 rounded-lg shadow-md"
   >
-    <h1>Crea Hospital</h1>
-    <form @submit.prevent="createHospital">
+    <div class="font-bold text-xl flex justify-center pb-4 text-white">
+      <h1>Crea Hospital</h1>
+    </div>
+    <form @submit.prevent="createHospital" class="text-xl">
       <div class="form-group mb-4">
-        <label for="name" class="font-bold">Nombre</label>
+        <label for="name" class="font-bold text-teal-100">Nombre</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -15,7 +17,7 @@
         />
       </div>
       <div class="form-group mb-4">
-        <label for="direccion" class="font-bold">Dirección</label>
+        <label for="direccion" class="font-bold text-teal-100">Dirección</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -25,7 +27,7 @@
         />
       </div>
       <div class="form-group mb-4">
-        <label for="telefono" class="font-bold">Telefono</label>
+        <label for="telefono" class="font-bold text-teal-100">Telefono</label>
         <input
           type="text"
           class="w-full p-2 border border-gray-300 rounded-md"
@@ -35,7 +37,7 @@
         />
       </div>
       <div class="form-group mb-4">
-        <label for="horario" class="font-bold">Horario</label>
+        <label for="horario" class="font-bold text-teal-100">Horario</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -45,7 +47,9 @@
         />
       </div>
       <div class="form-group mb-4">
-        <label for="urlGoogleMaps" class="font-bold">Google Maps URL</label>
+        <label for="urlGoogleMaps" class="font-bold text-teal-100"
+          >Google Maps URL</label
+        >
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -55,7 +59,7 @@
         />
       </div>
       <div class="form-group mb-4">
-        <label for="long" class="font-bold">Longitud</label>
+        <label for="long" class="font-bold text-teal-100">Longitud</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -65,7 +69,7 @@
         />
       </div>
       <div class="form-group mb-4">
-        <label for="lat" class="font-bold">Latitud</label>
+        <label for="lat" class="font-bold text-teal-100">Latitud</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -146,3 +150,14 @@ export default {
   },
 };
 </script>
+<style>
+.form-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.form-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+</style>

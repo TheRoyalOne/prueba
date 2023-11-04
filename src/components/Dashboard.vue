@@ -19,18 +19,18 @@
         class="table bg-sky-50 text-gray-600 font-bold w-full rounded-lg p-1"
       >
         <thead
-          class="sticky top-0 bg-teal-100 text-indigo-950 z-10 rounded-lg p-4 text-xl"
+          class="sticky top-0 bg-emerald-200 text-black z-10 rounded-lg p-4 text-xl"
         >
           <tr class="text-center">
-            <th>Nombre</th>
-            <th>Foto</th>
-            <th>Logo</th>
-            <th>Dirección</th>
-            <th>Ubicación</th>
-            <th>Telefono</th>
-            <th>Horario</th>
-            <th>Municipio</th>
-            <th>Acciones</th>
+            <th class="px-2">Nombre</th>
+            <th class="px-2">Foto</th>
+            <th class="px-2">Logo</th>
+            <th class="px-2">Dirección</th>
+            <th class="px-2">Ubicación</th>
+            <th class="px-2">Telefono</th>
+            <th class="px-2">Horario</th>
+            <th class="px-2">Municipio</th>
+            <th class="px-2">Acciones</th>
           </tr>
         </thead>
         <tbody class="p-4">
@@ -51,7 +51,7 @@
                 alt="Foto de Hospital"
               />
             </td>
-            <td class="px-4 text-center">
+            <td class="text-center">
               <img
                 :src="
                   hospital.logo
@@ -222,3 +222,14 @@ export default {
   },
 };
 </script>
+<style>
+.table-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.table-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+</style>

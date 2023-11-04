@@ -5,7 +5,7 @@
     @click="closeModal"
   >
     <div
-      class="modal-content h-4/5 bg-white p-5 rounded-lg shadow-md cursor-default"
+      class="modal-content h-4/5 bg-gradient-to-r from-stone-500 via-gray-600 to-indigo-800 bg-opacity-60 p-5 rounded-lg shadow-md cursor-default"
       @click.stop
     >
       <HospitalCreate

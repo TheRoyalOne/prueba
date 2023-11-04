@@ -4,7 +4,7 @@
     v-if="isModalVisible"
     @click="closeModal"
   >
-    <div class="modal-content bg-white p-4 rounded-lg shadow-md cursor-default h-4/5" @click.stop>
+    <div class="modal-content bg-gradient-to-r from-stone-500 via-gray-600 to-indigo-800 bg-opacity-80 p-4 rounded-lg shadow-md cursor-default h-4/5" @click.stop>
       <HospitalUpdate
         class=" "
         :hospital="selectedHospital"

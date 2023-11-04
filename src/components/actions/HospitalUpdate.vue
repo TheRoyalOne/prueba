@@ -1,12 +1,23 @@
 <template>
   <div
-    class="form-container h-full overflow-auto bg-white p-2 rounded-lg shadow-md"
+    class="form-container h-full overflow-auto bg-opacity-0 p-2 rounded-lg shadow-md items-center w-fit"
   >
-    <h1 v-if="selectedModal === 'edit'">Modifica Hospital</h1>
-    <h1 v-if="selectedModal === 'view'">Ver Hospital</h1>
-    <form @submit.prevent="updateHospital">
+    <div
+      class="sticky top-0 z-10 rounded-lg p-4 font-bold bg-gradient-to-r from-stone-500 via-gray-600 to-indigo-800 bg-opacity-40 text-white text-xl flex justify-center pb-4"
+    >
+      <h1 v-if="selectedModal === 'edit'" class="w-fit text-white">
+        Editando: {{ hospitalData.name }}
+      </h1>
+      <h1
+        v-if="selectedModal === 'view'"
+        class="w-fit text-ellipsis text-white"
+      >
+        {{ hospitalData.name }}
+      </h1>
+    </div>
+    <form @submit.prevent="updateHospital" class="text-xl">
       <div class="form-group pb-3">
-        <label for="name" class="font-bold">Nombre</label>
+        <label for="name" class="font-bold text-teal-100">Nombre</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -17,7 +28,7 @@
         />
       </div>
       <div class="form-group pb-3">
-        <label for="direccion" class="font-bold">Dirección</label>
+        <label for="direccion" class="font-bold text-teal-100">Dirección</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -28,7 +39,9 @@
         />
       </div>
       <div class="form-group pb-3">
-        <label for="urlGoogleMaps" class="font-bold">Google Maps URL</label>
+        <label for="urlGoogleMaps" class="font-bold text-teal-100"
+          >Google Maps URL</label
+        >
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -39,7 +52,7 @@
         />
       </div>
       <div class="form-group pb-3">
-        <label for="telefono" class="font-bold">Telefono</label>
+        <label for="telefono" class="font-bold text-teal-100">Telefono</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -50,7 +63,7 @@
         />
       </div>
       <div class="form-group pb-3">
-        <label for="horario" class="font-bold">Horario</label>
+        <label for="horario" class="font-bold text-teal-100">Horario</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -61,7 +74,7 @@
         />
       </div>
       <div class="form-group pb-3">
-        <label for="municipio" class="font-bold">Municipio</label>
+        <label for="municipio" class="font-bold text-teal-100">Municipio</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -72,7 +85,9 @@
         />
       </div>
       <div class="form-group pb-3">
-        <label for="observaciones" class="font-bold">Observaciones</label>
+        <label for="observaciones" class="font-bold text-teal-100"
+          >Observaciones</label
+        >
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -82,7 +97,7 @@
         />
       </div>
       <div class="form-group pb-3">
-        <label for="long" class="font-bold">Longitud</label>
+        <label for="long" class="font-bold text-teal-100">Longitud</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -93,7 +108,7 @@
         />
       </div>
       <div class="form-group pb-3">
-        <label for="lat" class="font-bold">Latitud</label>
+        <label for="lat" class="font-bold text-teal-100">Latitud</label>
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -104,7 +119,9 @@
         />
       </div>
       <div class="form-group pb-3">
-        <label for="aseguradora" class="font-bold">Aseguradora</label>
+        <label for="aseguradora" class="font-bold text-teal-100"
+          >Aseguradora</label
+        >
         <input
           class="w-full p-2 border border-gray-300 rounded-md"
           type="text"
@@ -117,7 +134,9 @@
 
       <div v-if="selectedModal === 'view'">
         <div class="form-group pb-3">
-          <label for="createdAt" class="font-bold">Fecha de creación</label>
+          <label for="createdAt" class="font-bold text-teal-100"
+            >Fecha de creación</label
+          >
           <input
             class="w-full p-2 border border-gray-300 rounded-md"
             type="text"
@@ -127,7 +146,7 @@
           />
         </div>
         <div class="form-group pb-3">
-          <label for="updatedAt" class="font-bold"
+          <label for="updatedAt" class="font-bold text-teal-100"
             >Fecha de Actualización</label
           >
           <input
@@ -139,15 +158,19 @@
           />
         </div>
         <div class="form-group pb-3">
-          <label for="Logo" class="font-bold">Logo</label>
-          <img :src="hospitalData.logo" alt="Logo" width="50" height="50" />
+          <label for="Logo" class="font-bold text-teal-100">Logo</label>
+          <div class="w-full flex justify-center">
+            <img :src="hospitalData.logo" alt="Logo" class="max-w-full" />
+          </div>
         </div>
         <div class="form-group pb-3">
-          <label for="foto" class="font-bold">Foto</label>
-          <img :src="hospitalData.foto" alt="foto" width="50" height="50" />
+          <label for="foto" class="font-bold text-teal-100">Foto</label>
+          <div class="w-full flex justify-center">
+            <img :src="hospitalData.foto" alt="foto" class="w-1/2" />
+          </div>
         </div>
         <div class="form-group pb-3">
-          <label for="enabled" class="font-bold">Activo</label>
+          <label for="enabled" class="font-bold text-teal-100">Activo</label>
           <input
             class="w-full p-2 border border-gray-300 rounded-md"
             type="text"
@@ -157,7 +180,9 @@
           />
         </div>
         <div class="form-group pb-3">
-          <label for="estadoCode" class="font-bold">Código de Estado</label>
+          <label for="estadoCode" class="font-bold text-teal-100"
+            >Código de Estado</label
+          >
           <input
             class="w-full p-2 border border-gray-300 rounded-md"
             type="text"
@@ -167,7 +192,7 @@
           />
         </div>
         <div class="form-group pb-3">
-          <label for="horario" class="font-bold">Horario</label>
+          <label for="horario" class="font-bold text-teal-100">Horario</label>
           <input
             class="w-full p-2 border border-gray-300 rounded-md"
             type="text"
@@ -180,7 +205,7 @@
       <div v-if="selectedModal === 'edit'">
         <button
           type="submit"
-          class="bg-gradient-to-r p-4 from-teal-700 via-teal-500 to-teal-300 hover:bg-teal-600 font-bold rounded-lg py-1 text-teal-50 focus:ring-2 focus:ring-teal-400"
+          class="w-full bg-gradient-to-r p-4 from-teal-700 via-teal-500 to-teal-300 hover:bg-teal-600 font-bold rounded-lg py-1 text-teal-50 focus:ring-2 focus:ring-teal-400"
         >
           Actualizar
         </button>
