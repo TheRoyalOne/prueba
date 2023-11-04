@@ -1,5 +1,5 @@
 <template>
-  <div class="w-4/5 h-4/5 text-ellipsis flex flex-col space-y-3">
+  <div class="w-4/5 h-full py-4 text-ellipsis flex flex-col space-y-3">
     <div class="w-full flex">
       <h1 class="flex-grow text-4xl font-bold text-teal-200">Hospitales</h1>
       <button
@@ -16,7 +16,7 @@
     </div>
     <div class="table-container overflow-auto w-full h-5/6 rounded-lg">
       <table
-        class="table bg-teal-50 text-gray-600 font-bold w-full rounded-lg p-1"
+        class="table bg-sky-50 text-gray-600 font-bold w-full rounded-lg p-1"
       >
         <thead
           class="sticky top-0 bg-teal-100 text-indigo-950 z-10 rounded-lg p-4 text-xl"
@@ -34,13 +34,32 @@
           </tr>
         </thead>
         <tbody class="p-4">
-          <tr v-for="hospital in hospitals" :key="hospital._id">
+          <tr
+            v-for="hospital in hospitals"
+            :key="hospital._id"
+            class="my-2 border-b-2 border-teal-100"
+          >
             <td class="px-4 text-center">{{ hospital.name }}</td>
             <td class="px-4 text-center">
-              <img :src="hospital.foto" alt="Foto" width="50" height="50" />
+              <img
+                class=""
+                :src="
+                  hospital.foto
+                    ? hospital.foto
+                    : require('@/assets/placeholder.png')
+                "
+                alt="Foto de Hospital"
+              />
             </td>
             <td class="px-4 text-center">
-              <img :src="hospital.logo" alt="Logo" width="50" height="50" />
+              <img
+                :src="
+                  hospital.logo
+                    ? hospital.logo
+                    : require('@/assets/placeholder.png')
+                "
+                alt="Logo de Hospital"
+              />
             </td>
             <td class="px-4 text-center">{{ hospital.direccion }}</td>
             <td class="px-4 text-center">
@@ -80,11 +99,13 @@
       </table>
     </div>
 
-    <div class="paginator">
-      <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
+    <div class="paginator flex p-2 text-teal-100 space-x-2 justify-end">
+      <button @click="prevPage" :disabled="currentPage === 1">
+        <img src="@/assets/previous.svg" alt="SVG Image" class="h-6 w-6" />
+      </button>
       <span>Page {{ currentPage }} of {{ totalPages }}</span>
       <button @click="nextPage" :disabled="currentPage === totalPages">
-        Next
+        <img src="@/assets/next.svg" alt="SVG Image" class="h-6 w-6" />
       </button>
     </div>
   </div>
